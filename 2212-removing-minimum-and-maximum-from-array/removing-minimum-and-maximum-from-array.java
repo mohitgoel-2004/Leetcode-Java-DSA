@@ -1,25 +1,29 @@
 class Solution {
     public int minimumDeletions(int[] nums) {
         int n = nums.length;
-        if(n<=2) return n;
+        if (n == 1) return n;
 
-        int minIndex = 0;
-        int maxIndex = 0;
+        int minIdx = 0;
+        int maxIdx = 0;
 
-        for(int k =0; k<n; k++){
-            if(nums[k] < nums[minIndex]) minIndex = k;
-             if(nums[k] > nums[maxIndex]) maxIndex = k;
+        for (int i = 1; i < n; i++) {
+            if (nums[i] < nums[minIdx]) {
+                minIdx = i;
+            }
+            if (nums[i] > nums[maxIdx]) {
+                maxIdx = i;
+            }
         }
 
-        int i = Math.min(minIndex, maxIndex);
-        int j = Math.max(minIndex, maxIndex);
+        int left = Math.min(minIdx, maxIdx);
+        int right = Math.max(minIdx, maxIdx);
 
-        int removeFront = j+1;
-        int removeBack = n-i;
+        int frontOnly = right + 1;
+       
+        int backOnly = n - left;
+     
+        int bothSides = (left + 1) + (n - right);
 
-        int removeBothSide = (i+ 1) + (n-j);
-
-        return Math.min(removeFront, Math.min(removeBack, removeBothSide));
-
+        return Math.min(frontOnly, Math.min(backOnly, bothSides));
     }
 }
